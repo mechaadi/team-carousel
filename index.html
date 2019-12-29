@@ -1,0 +1,209 @@
+<html>
+
+<head>
+    <!-- <script type="text/javascript" src="index.js"></script>
+        <link href="index.css" rel="stylesheet" type="text/css" /> -->
+    <!-- Compiled and minified CSS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+
+    <!-- <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    /> -->
+    <link href="mat.css" rel="stylesheet" type="text/css" />
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+
+        <div class="imageData">
+            <div id="0" class="imageData">
+                <h1 class="data">
+                    HEADING 1
+                </h1>
+                <p class="data">
+                    BODY 1
+                </p>
+            </div>
+
+            <div id="1" class="imageData">
+                <h1 class="data">
+                    HEADING 2
+                </h1>
+                <p class="data">
+                    BODY 2
+                </p>
+            </div>
+
+            <div id="2" class="imageData">
+                <h1 class="data">
+                    HEADING 3
+                </h1>
+                <p class="data">
+                    BODY 3
+                </p>
+            </div>
+
+            <div id="3" class="imageData">
+                <h1 class="data">
+                    HEADING 4
+                </h1>
+                <p class="data">
+                    BODY 4
+                </p>
+            </div>
+
+            <div id="4" class="imageData">
+                <h1 class="data">
+                    HEADING 5
+                </h1>
+                <p class="data">
+                    BODY 5
+                </p>
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="btnPrev">
+                <div>
+                    <button id="previous">
+            PREVIOUS
+          </button>
+                </div>
+
+            </div>
+            <div class="column">
+                <div class="carousel">
+                    <img class="carousel-item" src="1.jpg" />
+                    <a class="carousel-item" href="#two!"><img src="2.jpg" /></a>
+                    <a class="carousel-item" href="#three!"><img src="3.jpg" /></a>
+                    <a class="carousel-item" href="#four!"><img src="4.png" /></a>
+                    <a class="carousel-item" href="#five!"><img src="5.jpg" /></a>
+                </div>
+            </div>
+            <div class="btnNext">
+                <div>
+                    <button id="next">
+            NEXT
+          </button>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            $(document).ready(function() {
+                function sleep(ms) {
+                    return new Promise(resolve => setTimeout(resolve, ms));
+                }
+
+                async function next() {
+                    await sleep(1000);
+
+                    for (var x = 0; x <= pos; x++) {
+                        document.getElementById(x).style.display = "none";
+                    }
+
+                    for (var x = pos + 1; x <= size; x++) {
+                        document.getElementById(x).style.display = "none";
+                    }
+
+                    document.getElementById(pos).style.display = "inline-block";
+                }
+
+                async function prev() {
+                    await sleep(1000);
+
+                    if (pos == 0) {
+                        document.getElementById("0").style.display = "none";
+                    }
+                    for (var x = 0; x <= pos - 1; x++) {
+                        console.log(x);
+                        document.getElementById(x).style.display = "none";
+                    }
+
+                    for (var y = pos; y <= size; y++) {
+                        console.log(x);
+                        document.getElementById(y).style.display = "none";
+                    }
+
+                    document.getElementById(pos).style.display = "inline-block";
+                }
+
+                var pos = 0;
+                var size = 4;
+                document.getElementById("0").style.display = "inline-block";
+                for (var i = 1; i <= size; i++) {
+                    document.getElementById(i).style.display = "none";
+                }
+
+                $(".carousel").carousel({
+                    indicators: true,
+                    shift: -1,
+                    numVisible: 3,
+                    onCycleTo: function(ele) {
+                        console.log(ele);
+                        console.log($(ele).index());
+                        var previousPos = pos;
+                        pos = $(ele).index();
+                        if (previousPos > pos) {
+                            prev();
+                        } else {
+                            next();
+                        }
+                        // the slide's index
+                    }
+                });
+
+                $("#next").click(async() => {
+                    console.log("next", pos + 1);
+
+                    $(".carousel").carousel("next");
+                    await sleep(1000);
+
+                    for (var x = 0; x <= pos; x++) {
+                        document.getElementById(x).style.display = "none";
+                    }
+
+                    for (var x = pos + 1; x <= size; x++) {
+                        document.getElementById(x).style.display = "none";
+                    }
+
+                    document.getElementById(pos).style.display = "inline-block";
+                });
+
+                $("#previous").click(async() => {
+                    console.log("prev", pos);
+
+                    $(".carousel").carousel("prev");
+
+                    await sleep(1000);
+
+                    if (pos == 0) {
+                        document.getElementById("0").style.display = "none";
+                    }
+                    for (var x = 0; x <= pos - 1; x++) {
+                        console.log(x);
+                        document.getElementById(x).style.display = "none";
+                    }
+
+                    for (var y = pos; y <= size; y++) {
+                        console.log(x);
+                        document.getElementById(y).style.display = "none";
+                    }
+
+                    document.getElementById(pos).style.display = "inline-block";
+                });
+            });
+        </script>
+</body>
+
+</html>
